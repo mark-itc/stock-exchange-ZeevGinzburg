@@ -10,8 +10,17 @@ header {
     justify-content: center;
     padding: 0.5rem;
 }
+h1 {
+    padding: 1rem;
+    color: rgb(37, 37, 72);
+}
 .search-bar {
     display: block;
     text-align: center;
     justify-content: center;
+}
+li {
+    border: 3px solid red;
+    font-style: bold;
+    color: green;
 }
