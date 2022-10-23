@@ -20,7 +20,7 @@ h1 {
     justify-content: center;
 }
 li {
-    border: 3px solid red;
-    font-style: bold;
-    color: green;
+    border: 0.5px solid rgb(203, 202, 202);
+    color: black;
+    padding: 0.5rem;
 }
