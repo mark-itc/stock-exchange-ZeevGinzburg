@@ -1,9 +1,12 @@
-const exmpUrl = "https://stock-exchange-dot-full-stack-course-services.ew.r.appspot.com/api/v3/search?query=AA&limit=10&exchange=NASDAQ";
+const basicUrl = "https://stock-exchange-dot-full-stack-course-services.ew.r.appspot.com/api/v3/";
 
-// const basicUrl = "https://stock-exchange-dot-full-stack-course-services.ew.r.appspot.com/api/v3/";
-
-// const searchQuery = "search?query=AA&limit=10&exchange=NASDAQ"
-// const serchUrl = basicUrl + searchQuery;
+const loader = document.getElementsByClassName("loader-container")[0];
+function turnOffLoader(){
+loader.style.display = "none";
+};
+function turnOnLoader(){
+    loader.style.display = "flex";
+    };
 
 async function askingFreeStockServerRespone(url) {
     try {
@@ -26,24 +29,29 @@ async function retrieveCompanyNameAndSymbol(object) {
 }
 
 async function presentOutput(url) {
+    const resultListElement = document.getElementById("result-list");
+    resultListElement.innerHTML = "";
     const stockArray = await askingFreeStockServerRespone(url); 
+
     for (let i = 0; i <= stockArray.length -1; i++) {
-        const companyNameandSymbol = await retrieveCompanyNameAndSymbol(stockArray[i]);
-        const searchResultList = document.createElement("li");
-        const searchResultText = document.createTextNode(companyNameandSymbol);
-        searchResultList.appendChild(searchResultText);
-        const element = document.getElementById("result-list");
-        element.appendChild(searchResultList);
+        const companyNameandSymbol = await  retrieveCompanyNameAndSymbol(stockArray[i]);
+        turnOffLoader();             
+        resultListElement.innerHTML += `<li> ${companyNameandSymbol} </li>`;
     }
 
 }
-
-
-
-
+document.onload = turnOffLoader();
 document.getElementById("searchButton").addEventListener("click",function(event) {searchButton()});
+// document.addEventListener("load",function(){
+//     turnOffLoader();
+// }
+// );
 
 function searchButton() {
-    presentOutput(exmpUrl);
+    turnOnLoader();
+    const userInput = document.getElementById('stock-search').value;
+    const searchQuery = `search?query=${userInput}&limit=10&exchange=NASDAQ`;
+    const serchUrl = basicUrl + searchQuery;
+    presentOutput(serchUrl);
 
 }
