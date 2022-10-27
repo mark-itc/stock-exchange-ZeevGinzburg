@@ -42,10 +42,7 @@ async function presentOutput(url) {
 }
 document.onload = turnOffLoader();
 document.getElementById("searchButton").addEventListener("click",function(event) {searchButton()});
-// document.addEventListener("load",function(){
-//     turnOffLoader();
-// }
-// );
+
 
 function searchButton() {
     turnOnLoader();
