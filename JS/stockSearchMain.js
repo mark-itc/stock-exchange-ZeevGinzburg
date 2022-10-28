@@ -38,13 +38,14 @@ async function presentOutput(url) {
         turnOffLoader();             
         resultListElement.innerHTML += `<li> ${companyNameandSymbol} </li>`;
     }
-
+    searchButton.style.backgroundColor = "#afeff4";
 }
 document.onload = turnOffLoader();
-document.getElementById("searchButton").addEventListener("click",function(event) {searchButton()});
+const searchButton = document.getElementById("searchButton");
+searchButton.addEventListener("click",function(event) {searchButtonFunction()});
 
-
-function searchButton() {
+function searchButtonFunction() {    
+    searchButton.style.backgroundColor = "#71a4a7"
     turnOnLoader();
     const userInput = document.getElementById('stock-search').value;
     const searchQuery = `search?query=${userInput}&limit=10&exchange=NASDAQ`;
