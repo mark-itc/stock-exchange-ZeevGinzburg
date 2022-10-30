@@ -1,6 +1,7 @@
-const basicUrl = "https://stock-exchange-dot-full-stack-course-services.ew.r.appspot.com/api/v3/";
 
+const basicUrl = "https://stock-exchange-dot-full-stack-course-services.ew.r.appspot.com/api/v3/";
 const loader = document.getElementsByClassName("loader-container")[0];
+
 function turnOffLoader(){
 loader.style.display = "none";
 };
@@ -25,22 +26,22 @@ async function retrieveCompanyNameAndSymbol(object) {
     const companyNameOfFirstObject = object.name;
     const companyNameandSymbol = `${companyNameOfFirstObject} (${symbolOfFirstObject})`;
     return companyNameandSymbol;
-
 }
 
 async function presentOutput(url) {
     const resultListElement = document.getElementById("result-list");
     resultListElement.innerHTML = "";
     const stockArray = await askingFreeStockServerRespone(url); 
-
     for (let i = 0; i <= stockArray.length -1; i++) {
         const companyNameandSymbol = await  retrieveCompanyNameAndSymbol(stockArray[i]);
+        const currentSymbol = stockArray[i].symbol;
         turnOffLoader();             
-        resultListElement.innerHTML += `<li> ${companyNameandSymbol} </li>`;
+        resultListElement.innerHTML += `<li><a href="./company.html?symbol=${currentSymbol}"> ${companyNameandSymbol} </a></li>`;
     }
     searchButton.style.backgroundColor = "#afeff4";
 }
-document.onload = turnOffLoader();
+
+turnOffLoader();
 const searchButton = document.getElementById("searchButton");
 searchButton.addEventListener("click",function(event) {searchButtonFunction()});
 
@@ -51,5 +52,4 @@ function searchButtonFunction() {
     const searchQuery = `search?query=${userInput}&limit=10&exchange=NASDAQ`;
     const serchUrl = basicUrl + searchQuery;
     presentOutput(serchUrl);
-
 }
